@@ -13,7 +13,12 @@ namespace Edufund.Data.Context
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new BoardConfiguration());
+            modelBuilder.ApplyConfiguration(new EduSystemConfiguration());
             modelBuilder.ApplyConfiguration(new MemberWalletConfiguration());
+            modelBuilder.ApplyConfiguration(new MemberConfiguration());
+            modelBuilder.ApplyConfiguration(new EduWalletConfiguration());
+            modelBuilder.ApplyConfiguration(new ReferralConfiguration());
         }
     }
 }

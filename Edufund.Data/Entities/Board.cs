@@ -17,9 +17,8 @@ namespace Edufund.Data.Entities
         public int UplineCount { get; set; }
 
         public int Cycles { get; set; }
-        //uplinecount * cycles
-        public int NoPerCycle { get; set; }
 
+        public int NoPerCycle { get; set; }
 
         public List<EduFundSystem> EduFundSystem { get; set; }
 
