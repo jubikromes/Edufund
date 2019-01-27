@@ -6,11 +6,26 @@ using System.Text;
 
 namespace Edufund.Data.Context
 {
-    public class EduFundContext : DbContext
+    public class EduFundContext : DbContext, IDbContext
     {
-        public EduFundContext(DbContextOptions<EduFundContext> options) : base(options)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DeviceContext"/> class.
+        /// </summary>
+        /// <param name="options">The options.</param>
+        public EduFundContext(DbContextOptions<EduFundContext> options)
+            : base(options)
         {
+            // TODO: Comment below this if you are running migrations commands
+            // TODO: uncomment below line of you are running the application for the first time
+            //this.Database.EnsureCreated();
         }
+
+        /// <summary>
+        /// Get or sets the devices data model
+        /// </summary>
+
+     
+       
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new BoardConfiguration());

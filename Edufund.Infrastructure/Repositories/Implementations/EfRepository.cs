@@ -1,4 +1,5 @@
 ﻿using Edufund.Data.Context;
+using Edufund.Data.Databasefactory;
 using Edufund.Data.Entities;
 using Edufund.Infrastructure.Repositories.Abstractions;
 using Edufund.Infrastructure.Specifications;
@@ -13,8 +14,14 @@ namespace Edufund.Infrastructure.Repositories.Implementations
 {
     public class EfRepository<T, U> : IRepository<T, U>, IAsyncRepository<T, U> where T : BaseEntity<U>
     {
-        protected readonly EduFundContext _dbContext;
+        protected readonly IDbContext _dbContext;
+        private readonly DbSet<T> dbSet;
 
+        public EfRepository(IDbContext dbContext)
+        {
+            _dbContext = dbContext;
+            this.dbSet = _dbContext.Set<T>();
+        }
         public EfRepository(EduFundContext dbContext)
         {
             _dbContext = dbContext;
@@ -75,21 +82,22 @@ namespace Edufund.Infrastructure.Repositories.Implementations
         public async Task<T> AddAsync(T entity)
         {
             _dbContext.Set<T>().Add(entity);
-            await _dbContext.SaveChangesAsync();
+            //await _dbContext.SaveChangesAsync();
 
             return entity;
         }
 
-        public void Update(T entity)
+        public EntityState Update(T entity)
         {
-            _dbContext.Entry(entity).State = EntityState.Modified;
-            _dbContext.SaveChanges();
+            return dbSet.Update(entity).State;
+           // _dbContext.Entry(entity).State = EntityState.Modified;
         }
 
         public async Task UpdateAsync(T entity)
         {
-            _dbContext.Entry(entity).State = EntityState.Modified;
-            await _dbContext.SaveChangesAsync();
+
+            //_dbContext.Entry(entity).State = EntityState.Modified;
+            //await _dbContext.SaveChangesAsync();
         }
 
         public void Delete(T entity)
@@ -100,8 +108,8 @@ namespace Edufund.Infrastructure.Repositories.Implementations
 
         public async Task DeleteAsync(T entity)
         {
-            _dbContext.Set<T>().Remove(entity);
-            await _dbContext.SaveChangesAsync();
+        //    _dbContext.Set<T>().Remove(entity);
+        //    await _dbContext.SaveChangesAsync();
         }
 
         private IQueryable<T> ApplySpecification(ISpecification<T> spec)
