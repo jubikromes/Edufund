@@ -9,7 +9,7 @@ namespace Edufund.Data.Context
     public class EduFundContext : DbContext, IDbContext
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DeviceContext"/> class.
+        /// Initializes a new instance of the <see cref="EduFundContext"/> class.
         /// </summary>
         /// <param name="options">The options.</param>
         public EduFundContext(DbContextOptions<EduFundContext> options)
@@ -24,8 +24,6 @@ namespace Edufund.Data.Context
         /// Get or sets the devices data model
         /// </summary>
 
-     
-       
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new BoardConfiguration());

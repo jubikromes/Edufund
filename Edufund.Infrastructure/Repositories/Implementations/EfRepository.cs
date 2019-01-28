@@ -116,5 +116,15 @@ namespace Edufund.Infrastructure.Repositories.Implementations
         {
             return SpecificationEvaluator<T, U>.GetQuery(_dbContext.Set<T>().AsQueryable(), spec);
         }
+        public IQueryable<T> FromSql(string query, params object[] parameters)
+        {
+            return this.dbSet.FromSql(query, parameters);
+        }
+
+        /// <inheritdoc />
+        public IQueryable<T> GetAll(string include, string include2)
+        {
+            return this.dbSet.Include(include).Include(include2);
+        }
     }
 }

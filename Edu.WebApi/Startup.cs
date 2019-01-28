@@ -13,25 +13,30 @@ using Microsoft.Extensions.Options;
 using Edufund.Infrastructure.Repositories.Abstractions;
 using Edufund.Infrastructure.Repositories.Implementations;
 using AutoMapper;
+using Edufund.Data.Configuration;
+using Edu.WebApi.Configuration;
 
 namespace Edu.WebApi
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+        //public Startup(IConfiguration configuration)
+        //{
+        //    Configuration = configuration;
+        //}
 
-        public IConfiguration Configuration { get; }
+        public IConfigurationRoot Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            ConfigurationOptions.ConfigureService(services, Configuration);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddAutoMapper();
             services.AddScoped(typeof(IRepository<,>), typeof(EfRepository<,>));
             services.AddScoped(typeof(IAsyncRepository<,>), typeof(EfRepository<,>));
+
+            EntityFrameworkConfiguration.ConfigureService(services, Configuration);
 
             //services.AddTransient<IEmailSender, EmailSender>();
         }

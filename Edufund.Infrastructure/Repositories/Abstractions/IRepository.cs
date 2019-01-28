@@ -3,6 +3,7 @@ using Edufund.Infrastructure.Specifications;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Edufund.Infrastructure.Repositories.Abstractions
@@ -17,5 +18,8 @@ namespace Edufund.Infrastructure.Repositories.Abstractions
         EntityState Update(T entity);
         void Delete(T entity);
         int Count(ISpecification<T> spec);
+
+        IQueryable<T> FromSql(string sql, params object[] parameters);
+        IQueryable<T> GetAll(string include, string include2);
     }
 }
