@@ -1,4 +1,5 @@
-﻿using Edufund.Data.Context;
+﻿using Edufund.Data.Configuration;
+using Edufund.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;

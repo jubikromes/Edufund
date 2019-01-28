@@ -15,6 +15,8 @@ using Edufund.Infrastructure.Repositories.Implementations;
 using AutoMapper;
 using Edufund.Data.Configuration;
 using Edu.WebApi.Configuration;
+using Microsoft.EntityFrameworkCore;
+using Edufund.Data.Context;
 
 namespace Edu.WebApi
 {
@@ -24,9 +26,10 @@ namespace Edu.WebApi
         //{
         //    Configuration = configuration;
         //}
-
         public IConfigurationRoot Configuration { get; }
 
+
+  
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
