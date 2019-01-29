@@ -13,7 +13,7 @@ namespace Edufund.Data.EntityMapper
         {
             builder.HasKey(p => p.Id);
 
-            builder.HasMany("EduFundSystem").WithOne("BoardId").IsRequired(false);
+            //builder.HasMany("EduFundSystem").WithOne("BoardId").IsRequired(false);
         }
     }
 }

@@ -35,7 +35,7 @@ namespace Edufund.Data.Configuration.Helpers
         /// <summary>
         /// Name of the device database tenant 2
         /// </summary>
-        public const string DeviceDbTenant2 = "DeviceDb-ten2";
+        public const string DeviceDbTenant2 = "EduDb";
 
         /// <summary>
         /// Guid of the first tenant
