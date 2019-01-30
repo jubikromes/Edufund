@@ -120,8 +120,8 @@ namespace Edufund.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     ModifiedDate = table.Column<DateTime>(nullable: false),
-                    ReferedId = table.Column<int>(nullable: false),
-                    RefererId = table.Column<int>(nullable: false)
+                    ReferedId = table.Column<int>(nullable: true),
+                    RefererId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -131,13 +131,13 @@ namespace Edufund.Data.Migrations
                         column: x => x.ReferedId,
                         principalTable: "Member",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Referral_Member_RefererId",
                         column: x => x.RefererId,
                         principalTable: "Member",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

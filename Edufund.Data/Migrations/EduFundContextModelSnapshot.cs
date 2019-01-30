@@ -153,9 +153,9 @@ namespace Edufund.Data.Migrations
 
                     b.Property<DateTime>("ModifiedDate");
 
-                    b.Property<int>("ReferedId");
+                    b.Property<int?>("ReferedId");
 
-                    b.Property<int>("RefererId");
+                    b.Property<int?>("RefererId");
 
                     b.HasKey("Id");
 
@@ -184,14 +184,12 @@ namespace Edufund.Data.Migrations
             modelBuilder.Entity("Edufund.Data.Entities.Referral", b =>
                 {
                     b.HasOne("Edufund.Data.Entities.Member", "Refered")
-                        .WithMany()
-                        .HasForeignKey("ReferedId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany("AllReferred")
+                        .HasForeignKey("ReferedId");
 
                     b.HasOne("Edufund.Data.Entities.Member", "Referer")
-                        .WithMany()
-                        .HasForeignKey("RefererId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany("Referrals")
+                        .HasForeignKey("RefererId");
                 });
 #pragma warning restore 612, 618
         }

@@ -14,6 +14,10 @@ namespace Edufund.Data.Entities
 
         public int? WalletId { get; set; }
 
+        public List<Referral> Referrals { get; set; }
+        public List<Referral> AllReferred { get; set; }
+
+
         public MemberWallet MemberWallet { get; set; }
     }
 }
