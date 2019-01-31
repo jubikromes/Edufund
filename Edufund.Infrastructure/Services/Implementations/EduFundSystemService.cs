@@ -1,4 +1,5 @@
-﻿using Edufund.Data.Entities;
+﻿using Edu.WebApi.Models;
+using Edufund.Data.Entities;
 using Edufund.Infrastructure.DTO;
 using Edufund.Infrastructure.Repositories.Implementations;
 using System;
@@ -14,16 +15,21 @@ namespace Edufund.Infrastructure.Services.Implementations
         {
             _eduFundRepository = eduFundRepository;
         }
-        public EduFundSystemDto GetEduFund(int id)
+        public ResponseModel<EduFundSystemDto> GetEduFund(int id)
         {
             var eduFund = _eduFundRepository.GetById(id);
-            return new EduFundSystemDto {
-                CreatedDate = eduFund.CreatedDate,
-                ModifiedDate = eduFund.ModifiedDate
-                , Boards = eduFund.Boards,
-                Description = eduFund.Description,
-                EntryFee = eduFund.EntryFee,
-                Title = eduFund.Title
+            return new ResponseModel<EduFundSystemDto> {
+                Message = "",
+                HasError = false,
+                Result =
+                {
+                    CreatedDate = eduFund.CreatedDate,
+                    ModifiedDate = eduFund.ModifiedDate,
+                    Boards = eduFund.Boards,
+                    Description = eduFund.Description,
+                    EntryFee = eduFund.EntryFee,
+                    Title = eduFund.Title
+                }
             };
         }
     }
