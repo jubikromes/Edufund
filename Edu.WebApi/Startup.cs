@@ -49,6 +49,7 @@ namespace Edu.WebApi
 
             EntityFrameworkConfiguration.ConfigureService(services, Configuration);
 
+            services.AddAutoMapper();
             //services.AddTransient<IEmailSender, EmailSender>();
         }
 

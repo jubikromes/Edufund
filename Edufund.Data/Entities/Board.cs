@@ -20,7 +20,8 @@ namespace Edufund.Data.Entities
 
         public int NoPerCycle { get; set; }
 
-        public List<EduFundSystem> EduFundSystem { get; set; }
+        public int EduFundSystemId { get; set; }
+        public EduFundSystem EduFundSystem { get; set; }
 
         public string Title { get; set; }
 

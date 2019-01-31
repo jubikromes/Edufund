@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Edufund.Data.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Edufund.Data.Entities
+namespace Edufund.Infrastructure.DTO
 {
-    public class EduFundSystem : BaseEntity<int>
+    public class EduFundSystemDto : BaseEntity<int>
     {
         public string Title { get; set; }
 
@@ -15,6 +16,7 @@ namespace Edufund.Data.Entities
         //public int BoardId { get; set; }
         //public Board Board { get; set; }
 
-        public List<Board> Boards { get; set; }
+        public List<Board> Boards { get; set; } = new List<Board> { };
+
     }
 }
