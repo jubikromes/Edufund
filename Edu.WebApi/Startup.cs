@@ -17,6 +17,9 @@ using Edufund.Data.Configuration;
 using Edu.WebApi.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Edufund.Data.Context;
+using Edufund.Data.Identity;
+using Microsoft.AspNetCore.Identity;
+using Edu.WebApi.Middleware;
 
 namespace Edu.WebApi
 {
@@ -48,14 +51,28 @@ namespace Edu.WebApi
             services.AddScoped(typeof(IAsyncRepository<,>), typeof(EfRepository<,>));
 
             EntityFrameworkConfiguration.ConfigureService(services, Configuration);
+            services.AddIdentity<EduUser, EduRole>().AddEntityFrameworkStores<EduFundContext>().AddDefaultUI().AddDefaultTokenProviders();
+
 
             services.AddAutoMapper();
+
+
             //services.AddTransient<IEmailSender, EmailSender>();
         }
 
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            //order
+            // 1. Exception Handling
+            // 2 . HTTP Strict Transport Security Protocol
+            // 3 HTTPS redirection
+            // 4. Static file server
+            // 5. Cookie policy enforcement
+            // 6. Authentication
+            // 7. Session
+            // 8. MVC
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -63,11 +80,14 @@ namespace Edu.WebApi
             else
             {
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                //app.UseExceptionHandler();
+                app.UseExceptionMiddleware();
                 app.UseHsts();
             }
 
             app.UseHttpsRedirection();
             app.UseMvc();
+
         }
     }
 }

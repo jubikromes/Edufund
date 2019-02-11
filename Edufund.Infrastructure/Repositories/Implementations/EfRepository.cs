@@ -81,7 +81,7 @@ namespace Edufund.Infrastructure.Repositories.Implementations
 
         public async Task<T> AddAsync(T entity)
         {
-            _dbContext.Set<T>().Add(entity);
+           var addEntity = await _dbContext.Set<T>().AddAsync(entity);
             //await _dbContext.SaveChangesAsync();
 
             return entity;

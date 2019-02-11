@@ -4,11 +4,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using Edufund.Data.Configuration;
+using Edufund.Data.Identity;
 
 namespace Edufund.Data.Configuration
 {
@@ -35,6 +37,8 @@ namespace Edufund.Data.Configuration
             // Entity framework configuration
             services.AddDbContext<EduFundContext>(options =>
                 databaseTypeInstance.GetContextBuilder(options, connectionOptions, connectionString));
+
+
 
             services.AddScoped<IDbContext, EduFundContext>();
         }
