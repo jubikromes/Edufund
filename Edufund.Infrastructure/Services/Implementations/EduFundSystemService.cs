@@ -2,35 +2,39 @@
 using Edufund.Data.Entities;
 using Edufund.Infrastructure.DTO;
 using Edufund.Infrastructure.Repositories.Implementations;
+using Edufund.Infrastructure.Services.Abstractions;
+using Edufund.Infrastructure.UnitofWork;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Edufund.Infrastructure.Services.Implementations
 {
-    public class EduFundSystemService
+    public class EduFundSystemService : IEduFundSystemService
     {
-        private readonly EfRepository<EduFundSystem, int> _eduFundRepository;
-        public EduFundSystemService(EfRepository<EduFundSystem, int> eduFundRepository)
+        private readonly IUnitofWork _unitofWork;
+        public EduFundSystemService(IUnitofWork unitofWork)
         {
-            _eduFundRepository = eduFundRepository;
+            _unitofWork = unitofWork;
         }
+
+        public BaseResponseModel CreateEduFundSystem(EduFundSystemDto systemDto)
+        {
+            throw new NotImplementedException();
+        }
+
         public ResponseModel<EduFundSystemDto> GetEduFund(int id)
         {
-            var eduFund = _eduFundRepository.GetById(id);
-            return new ResponseModel<EduFundSystemDto> {
-                Message = "",
-                HasError = false,
-                Result =
-                {
-                    CreatedDate = eduFund.CreatedDate,
-                    ModifiedDate = eduFund.ModifiedDate,
-                    Boards = eduFund.Boards,
-                    Description = eduFund.Description,
-                    EntryFee = eduFund.EntryFee,
-                    Title = eduFund.Title
-                }
-            };
+            var response = new ResponseModel<EduFundSystemDto> { };
+            var eduFundRepo = _unitofWork.GetRepository<EduFundSystem, int>();
+            var edufund = eduFundRepo.GetById(id);
+            if (edufund == null)
+            {
+                response.HasError = false;
+                response.Message = "Edu Fund does not exist";
+            }
+            return response;
         }
+
     }
 }

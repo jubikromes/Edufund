@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Edufund.Infrastructure.Repositories.Implementations
@@ -22,14 +23,14 @@ namespace Edufund.Infrastructure.Repositories.Implementations
             _dbContext = dbContext;
             this.dbSet = _dbContext.Set<T>();
         }
-        public EfRepository(EduFundContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
+        //public EfRepository(EduFundContext dbContext)
+        //{
+        //    _dbContext = dbContext;
+        //}
 
         public virtual T GetById(U id)
         {
-            return _dbContext.Set<T>().Find(id);
+            return dbSet.Find(id);
         }
 
         public T GetSingleBySpec(ISpecification<T> spec)
@@ -39,17 +40,17 @@ namespace Edufund.Infrastructure.Repositories.Implementations
 
         public virtual async Task<T> GetByIdAsync(U id)
         {
-            return await _dbContext.Set<T>().FindAsync(id);
+            return await this.dbSet.FindAsync(id);
         }
 
         public IEnumerable<T> ListAll()
         {
-            return _dbContext.Set<T>().AsEnumerable();
+            return this.dbSet.AsEnumerable();
         }
 
         public async Task<IReadOnlyList<T>> ListAllAsync()
         {
-            return await _dbContext.Set<T>().ToListAsync();
+            return await this.dbSet.ToListAsync();
         }
 
         public IEnumerable<T> List(ISpecification<T> spec)
@@ -73,44 +74,41 @@ namespace Edufund.Infrastructure.Repositories.Implementations
 
         public T Add(T entity)
         {
-            _dbContext.Set<T>().Add(entity);
-            _dbContext.SaveChanges();
+            this.dbSet.Add(entity);
 
             return entity;
         }
 
         public async Task<T> AddAsync(T entity)
         {
-           var addEntity = await _dbContext.Set<T>().AddAsync(entity);
-            //await _dbContext.SaveChangesAsync();
+           var addEntity = await this.dbSet.AddAsync(entity);
 
             return entity;
         }
 
-        public EntityState Update(T entity)
+        public void Update(T entity)
         {
-            return dbSet.Update(entity).State;
+            if (entity == null)
+                throw new ArgumentNullException(nameof(entity));
+            try
+            {
+                this.dbSet.Update(entity);
+                //_dbContext.SaveChanges();
+            }
+            catch (DbUpdateException exception)
+            {
+                //ensure that the detailed error text is saved in the Log
+                throw new Exception(exception.ToString());
+            }
            // _dbContext.Entry(entity).State = EntityState.Modified;
         }
 
-        public async Task UpdateAsync(T entity)
-        {
-
-            //_dbContext.Entry(entity).State = EntityState.Modified;
-            //await _dbContext.SaveChangesAsync();
-        }
 
         public void Delete(T entity)
         {
-            _dbContext.Set<T>().Remove(entity);
-            _dbContext.SaveChanges();
+            this.dbSet.Remove(entity);
         }
 
-        public async Task DeleteAsync(T entity)
-        {
-        //    _dbContext.Set<T>().Remove(entity);
-        //    await _dbContext.SaveChangesAsync();
-        }
 
         private IQueryable<T> ApplySpecification(ISpecification<T> spec)
         {
@@ -125,6 +123,16 @@ namespace Edufund.Infrastructure.Repositories.Implementations
         public IQueryable<T> GetAll(string include, string include2)
         {
             return this.dbSet.Include(include).Include(include2);
+        }
+
+        public async Task<int> SaveChangesAsync(CancellationToken cancellation)
+        {
+           return await _dbContext.SaveChangesAsync(cancellation);
+        }
+
+        public int SaveChanges()
+        {
+            return _dbContext.SaveChanges();
         }
     }
 }
