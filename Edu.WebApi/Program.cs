@@ -20,7 +20,7 @@ namespace Edu.WebApi
         /// <param name="args"></param>
         public static void Main(string[] args)
         {
-            var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+            var logger = NLogBuilder.ConfigureNLog(".\\nlog.config").GetCurrentClassLogger();
             try
             {
                 CreateWebHostBuilder(args).Build().Run();

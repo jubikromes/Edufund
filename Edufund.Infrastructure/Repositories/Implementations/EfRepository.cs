@@ -15,19 +15,13 @@ namespace Edufund.Infrastructure.Repositories.Implementations
 {
     public class EfRepository<T, U> : IRepository<T, U>, IAsyncRepository<T, U> where T : BaseEntity<U>
     {
-        protected readonly IDbContext _dbContext;
+        private readonly IDbContext _dbContext;
         private readonly DbSet<T> dbSet;
-
         public EfRepository(IDbContext dbContext)
         {
             _dbContext = dbContext;
             this.dbSet = _dbContext.Set<T>();
         }
-        //public EfRepository(EduFundContext dbContext)
-        //{
-        //    _dbContext = dbContext;
-        //}
-
         public virtual T GetById(U id)
         {
             return dbSet.Find(id);
@@ -74,7 +68,14 @@ namespace Edufund.Infrastructure.Repositories.Implementations
 
         public T Add(T entity)
         {
-            this.dbSet.Add(entity);
+            try
+            {
+                this.dbSet.Add(entity);
+            }
+            catch (Exception)
+            {
+
+            }
 
             return entity;
         }

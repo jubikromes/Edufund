@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Swashbuckle.AspNetCore.Swagger;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -20,6 +21,14 @@ using Edufund.Data.Context;
 using Edufund.Data.Identity;
 using Microsoft.AspNetCore.Identity;
 using Edu.WebApi.Middleware;
+using Edufund.Infrastructure.Config;
+using NLog.Web;
+using Edufund.Infrastructure.Services.Abstractions;
+using Edufund.Infrastructure.Services.Implementations;
+using Edufund.Infrastructure.UnitofWork;
+using Edufund.Data.Databasefactory;
+using Edufund.Data;
+using Edufund.Data.DatabaseManager;
 
 namespace Edu.WebApi
 {
@@ -44,19 +53,29 @@ namespace Edu.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            EntityFrameworkConfiguration.ConfigureService(services, Configuration);
+            services.AddIdentity<EduUser, EduRole>()
+             .AddEntityFrameworkStores<DbContext>()
+              .AddDefaultUI().AddDefaultTokenProviders();
+
             ConfigurationOptions.ConfigureService(services, Configuration);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddAutoMapper();
             services.AddScoped(typeof(IRepository<,>), typeof(EfRepository<,>));
             services.AddScoped(typeof(IAsyncRepository<,>), typeof(EfRepository<,>));
-
-            EntityFrameworkConfiguration.ConfigureService(services, Configuration);
-            services.AddIdentity<EduUser, EduRole>().AddEntityFrameworkStores<EduFundContext>().AddDefaultUI().AddDefaultTokenProviders();
-
+            services.AddScoped<IEduFundSystemService, EduFundSystemService>();
+            services.AddScoped<IUnitofWork, UnitofWork>();
+            services.AddTransient<IDatabaseManager, EduContextDatabaseManager>();
+            services.AddTransient<IContextFactory, EdufundContextFactory>();
 
             services.AddAutoMapper();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+            });
 
-
+            AutoMapperConfiguration.Configure();
             //services.AddTransient<IEmailSender, EmailSender>();
         }
 
@@ -87,7 +106,12 @@ namespace Edu.WebApi
 
             app.UseHttpsRedirection();
             app.UseMvc();
-
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Device Api v1.0");
+            });
+            env.ConfigureNLog("nlog.config");
         }
     }
 }

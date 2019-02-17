@@ -3,6 +3,7 @@ using Edufund.Infrastructure.DTO;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Edufund.Infrastructure.Services.Abstractions
 {
@@ -10,6 +11,6 @@ namespace Edufund.Infrastructure.Services.Abstractions
     {
         ResponseModel<EduFundSystemDto> GetEduFund(int id);
 
-        BaseResponseModel CreateEduFundSystem(EduFundSystemDto systemDto);
+        Task<BaseResponseModel> CreateEduFundSystem(EduFundSystemDto systemDto);
     }
 }

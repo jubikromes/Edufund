@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Edufund.Data.Context;
+using Edufund.Data.Databasefactory;
 using Edufund.Data.Entities;
 using Edufund.Infrastructure.Repositories.Abstractions;
 using Edufund.Infrastructure.Repositories.Implementations;
@@ -20,8 +21,25 @@ namespace Edufund.Infrastructure.UnitofWork
         /// </summary>
         private Dictionary<Type, object> repositories;
         private IDbContextTransaction dbContextTransaction;
-        private IDbContext dbContext;
+        private readonly IDbContext dbContext;
+        public UnitofWork(IContextFactory contextFactory)
+        {
+            this.dbContext = contextFactory.DbContext;
+        }
 
+
+
+        public IDbContext Context
+        {
+            get
+            {
+                return dbContext;
+            }
+            set
+            {
+                value = dbContext;
+            }
+        }
 
         /// <summary>
         /// Saves all pending changes
@@ -30,12 +48,12 @@ namespace Edufund.Infrastructure.UnitofWork
         public async Task<int> Commit(CancellationToken token)
         {
             // Save changes with the default options
-            return await this.dbContext.SaveChangesAsync(token);
+            return await Context.SaveChangesAsync(token);
         }
 
         public int Commit()
         {
-            return dbContext.SaveChanges();
+            return Context.SaveChanges();
         }
         public void Dispose()
         {
@@ -54,7 +72,7 @@ namespace Edufund.Infrastructure.UnitofWork
             var type = typeof(TEntity);
             if (!this.repositories.ContainsKey(type))
             {
-                this.repositories[type] = new EfRepository<TEntity, U>(this.dbContext);
+                this.repositories[type] = new EfRepository<TEntity, U>(Context);
             }
 
             return (IRepository<TEntity, U>)this.repositories[type];
@@ -70,18 +88,18 @@ namespace Edufund.Infrastructure.UnitofWork
                 if (this.dbContext != null)
                 {
                     this.dbContext.Dispose();
-                    this.dbContext = null;
+                    Context = null;
                 }
             }
         }
         
         public Task<int> SaveChanges()
         {
-            throw new NotImplementedException();
+            return Context.SaveChangesAsync(CancellationToken.None);
         }
         public Task<int> SaveChanges(CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return Context.SaveChangesAsync(CancellationToken.None);
         }
     }
 }

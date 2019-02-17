@@ -1,5 +1,6 @@
 ﻿using Edufund.Data.Configuration;
 using Edufund.Data.Context;
+using Edufund.Data.Databasefactory;
 using Edufund.Data.DatabaseManager;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Server.Kestrel.Core.Internal;
@@ -19,7 +20,7 @@ namespace Edufund.Data
     /// </summary>
     /// https://dzone.com/articles/multi-tenant-api-based-on-swagger-entity-framework-1
     /// <seealso cref="IContextFactory" />
-    public class EdufundContextFactory
+    public class EdufundContextFactory : IContextFactory
     {
         private const string TenantIdFieldName = "tenantid";
         private const string DatabaseFieldKeyword = "Database";
@@ -58,10 +59,6 @@ namespace Edufund.Data
                 return tenantId;
             }
         }
-
-
-
-
 
         public IDbContext DbContext => new EduFundContext(ChangeDatabaseNameInConnectionString(this.TenantId).Options);
 

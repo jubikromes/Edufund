@@ -7,6 +7,7 @@ using Edufund.Infrastructure.UnitofWork;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Edufund.Infrastructure.Services.Implementations
 {
@@ -18,9 +19,27 @@ namespace Edufund.Infrastructure.Services.Implementations
             _unitofWork = unitofWork;
         }
 
-        public BaseResponseModel CreateEduFundSystem(EduFundSystemDto systemDto)
+        public async Task<BaseResponseModel> CreateEduFundSystem(EduFundSystemDto systemDto)
         {
-            throw new NotImplementedException();
+            var response = new BaseResponseModel { };
+            try
+            {
+                var eduFundRepo = _unitofWork.GetRepository<EduFundSystem, int>();
+                var createdEntity = eduFundRepo.Add(new EduFundSystem
+                {
+                    Description = systemDto.Description,
+                    EntryFee = systemDto.EntryFee,
+                    Title = systemDto.Title,
+                });
+                await _unitofWork.SaveChanges();
+                response.Message = "Entity Created";
+            }
+            catch(Exception ex)
+            {
+                response.HasError = true;
+                response.Message = ex.Message;
+            }
+            return response;
         }
 
         public ResponseModel<EduFundSystemDto> GetEduFund(int id)

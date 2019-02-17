@@ -15,10 +15,10 @@ namespace Edufund.Data
         private readonly Dictionary<Guid, string> tenantConfigurationDictionary = new Dictionary<Guid, string>
         {
             {
-                Guid.Parse("b0ed668d-7ef2-4a23-a333-94ad278f45d7"), "DeviceDb"
+                Guid.Parse("b0ed668d-7ef2-4a23-a333-94ad278f45d7"), "EduDb"
             },
             {
-                Guid.Parse("e7e73238-662f-4da2-b3a5-89f4abb87969"), "DeviceDb-ten2"
+                Guid.Parse("e7e73238-662f-4da2-b3a5-89f4abb87969"), "EduDb-Ghana"
             }
         };
         /// <summary>
