@@ -22,23 +22,16 @@ namespace Edufund.Infrastructure.Services.Implementations
         public async Task<BaseResponseModel> CreateEduFundSystem(EduFundSystemDto systemDto)
         {
             var response = new BaseResponseModel { };
-            try
+
+            var eduFundRepo = _unitofWork.GetRepository<EduFundSystem, int>();
+            var createdEntity = eduFundRepo.Add(new EduFundSystem
             {
-                var eduFundRepo = _unitofWork.GetRepository<EduFundSystem, int>();
-                var createdEntity = eduFundRepo.Add(new EduFundSystem
-                {
-                    Description = systemDto.Description,
-                    EntryFee = systemDto.EntryFee,
-                    Title = systemDto.Title,
-                });
-                await _unitofWork.SaveChanges();
-                response.Message = "Entity Created";
-            }
-            catch(Exception ex)
-            {
-                response.HasError = true;
-                response.Message = ex.Message;
-            }
+                Description = systemDto.Description,
+                EntryFee = systemDto.EntryFee,
+                Title = systemDto.Title,
+            });
+            await _unitofWork.SaveChanges();
+            response.Message = "Entity Created";
             return response;
         }
 

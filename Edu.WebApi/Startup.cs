@@ -94,7 +94,9 @@ namespace Edu.WebApi
             // 8. MVC
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseExceptionMiddleware();
+
+                //app.UseDeveloperExceptionPage();
             }
             else
             {
