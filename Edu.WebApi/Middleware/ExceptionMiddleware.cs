@@ -36,9 +36,8 @@ namespace Edu.WebApi.Middleware
         //var exception = feature.Error;
 
 
-        var response = new ApiResponse
+            var response = new ApiResponse
             {
-                HasError = true
             };
             try
             {
@@ -46,6 +45,8 @@ namespace Edu.WebApi.Middleware
             }
             catch (Exception exception)
             {
+                response.HasError = true;
+
                 var httpStatusCode = ConfigurateExceptionTypes(exception);
                 response.Message = exception.Message;
                 response.Status = 500;
