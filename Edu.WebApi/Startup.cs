@@ -29,6 +29,9 @@ using Edufund.Infrastructure.UnitofWork;
 using Edufund.Data.Databasefactory;
 using Edufund.Data;
 using Edufund.Data.DatabaseManager;
+using Edufund.Infrastructure.Models;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Edu.WebApi
 {
@@ -38,6 +41,10 @@ namespace Edu.WebApi
         //{
         //    Configuration = configuration;
         //}
+
+        private const string SecretKey = "iNivDmHLpUA223sqsfhqGbMRdRj1PVkH"; // todo: get this from somewhere secure
+        private readonly SymmetricSecurityKey _signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretKey));
+
         public IConfigurationRoot Configuration { get; }
         public Startup(IHostingEnvironment env)
         {
@@ -55,26 +62,22 @@ namespace Edu.WebApi
         {
 
             EntityFrameworkConfiguration.ConfigureService(services, Configuration);
-            services.AddIdentity<EduUser, EduRole>()
-             .AddEntityFrameworkStores<DbContext>()
-              .AddDefaultUI().AddDefaultTokenProviders();
+            services.AddSingleton<IJwtFactory, JwtFactory>();
+            var jwtsectionOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
+            AuthConfiguration.ConfigureAuth(services, jwtsectionOptions, _signingKey);
+
+       
 
             ConfigurationOptions.ConfigureService(services, Configuration);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            IOCConfiguration.ConfigureServices(services);
             services.AddAutoMapper();
-            services.AddScoped(typeof(IRepository<,>), typeof(EfRepository<,>));
-            services.AddScoped(typeof(IAsyncRepository<,>), typeof(EfRepository<,>));
-            services.AddScoped<IEduFundSystemService, EduFundSystemService>();
-            services.AddScoped<IUnitofWork, UnitofWork>();
-            services.AddTransient<IDatabaseManager, EduContextDatabaseManager>();
-            services.AddTransient<IContextFactory, EdufundContextFactory>();
 
-            services.AddAutoMapper();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
             });
-
+           
             AutoMapperConfiguration.Configure();
             //services.AddTransient<IEmailSender, EmailSender>();
         }

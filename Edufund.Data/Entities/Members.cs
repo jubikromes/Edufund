@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Edufund.Data.Identity;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -19,5 +20,9 @@ namespace Edufund.Data.Entities
 
 
         public MemberWallet MemberWallet { get; set; }
+
+        public string EduUserId { get; set; }
+        public EduUser EduUser { get; set; }
+
     }
 }

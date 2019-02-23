@@ -51,7 +51,6 @@ namespace Edu.WebApi.Middleware
                 response.Message = exception.Message;
                 response.Status = 500;
                 context.Response.StatusCode = httpStatusCode;
-                //TODO: [Temp fix] Rebuild this later to proper JSON error object serialization 
                 context.Response.ContentType = "application/json";
                 context.Response.WriteJson(response);
                 context.Response.StatusCode = response.Status;
