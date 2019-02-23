@@ -18,7 +18,10 @@ namespace Edufund.Infrastructure.UnitofWork
         /// </summary>
         /// <typeparam name="TEntity">The type of the entity.</typeparam>
         /// <returns>Repository</returns>
-        IRepository<TEntity, U> GetRepository<TEntity, U>()
-            where TEntity : BaseEntity<U>;
+        //IRepository<TEntity, U> GetRepository<TEntity, U>()
+        //    where TEntity : BaseEntity<U>;
+
+        IMemberRepository MemberRepository { get; }
+        IEduFundSystemRepository EduFundSystemRepository { get; }
     }
 }

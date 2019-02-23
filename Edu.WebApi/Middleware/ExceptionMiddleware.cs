@@ -54,7 +54,6 @@ namespace Edu.WebApi.Middleware
                 context.Response.ContentType = "application/json";
                 context.Response.WriteJson(response);
                 context.Response.StatusCode = response.Status;
-
                 context.Response.Headers.Clear();
             }
             

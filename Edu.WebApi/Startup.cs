@@ -37,14 +37,8 @@ namespace Edu.WebApi
 {
     public class Startup
     {
-        //public Startup(IConfiguration configuration)
-        //{
-        //    Configuration = configuration;
-        //}
-
         private const string SecretKey = "iNivDmHLpUA223sqsfhqGbMRdRj1PVkH"; // todo: get this from somewhere secure
         private readonly SymmetricSecurityKey _signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretKey));
-
         public IConfigurationRoot Configuration { get; }
         public Startup(IHostingEnvironment env)
         {
@@ -60,24 +54,18 @@ namespace Edu.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             EntityFrameworkConfiguration.ConfigureService(services, Configuration);
             services.AddSingleton<IJwtFactory, JwtFactory>();
             var jwtsectionOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
             AuthConfiguration.ConfigureAuth(services, jwtsectionOptions, _signingKey);
-
-       
-
             ConfigurationOptions.ConfigureService(services, Configuration);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             IOCConfiguration.ConfigureServices(services);
             services.AddAutoMapper();
-
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
             });
-           
             AutoMapperConfiguration.Configure();
             //services.AddTransient<IEmailSender, EmailSender>();
         }
@@ -98,7 +86,6 @@ namespace Edu.WebApi
             if (env.IsDevelopment())
             {
                 app.UseExceptionMiddleware();
-
                 //app.UseDeveloperExceptionPage();
             }
             else
@@ -108,7 +95,8 @@ namespace Edu.WebApi
                 app.UseExceptionMiddleware();
                 app.UseHsts();
             }
-
+            app.UseAuthentication();
+            app.UseCors("AllowAllHeaders");
             app.UseHttpsRedirection();
             app.UseMvc();
             app.UseSwagger();

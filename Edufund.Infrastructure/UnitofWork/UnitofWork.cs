@@ -62,19 +62,51 @@ namespace Edufund.Infrastructure.UnitofWork
             // ReSharper disable once GCSuppressFinalizeForTypeWithoutDestructor
             GC.SuppressFinalize(obj: this);
         }
-        public IRepository<TEntity, U> GetRepository<TEntity, U>() where TEntity : BaseEntity<U>
-        {
-            if (this.repositories == null)
-            {
-                this.repositories = new Dictionary<Type, object>();
-            }
-            var type = typeof(TEntity);
-            if (!this.repositories.ContainsKey(type))
-            {
-                this.repositories[type] = new EfRepository<TEntity, U>(Context);
-            }
+        //properties
+        private IMemberRepository memberRepository;
+        private IEduFundSystemRepository edufundRepository;
 
-            return (IRepository<TEntity, U>)this.repositories[type];
+
+        //public IRepository<TEntity, U> GetRepository<TEntity, U>() where TEntity : BaseEntity<U>
+        //{
+        //    if (this.repositories == null)
+        //    {
+        //        this.repositories = new Dictionary<Type, object>();
+        //    }
+        //    var type = typeof(TEntity);
+        //    if (!this.repositories.ContainsKey(type))
+        //    {
+        //        this.repositories[type] = new EfRepository<TEntity, U>(Context);
+        //    }
+
+        //    return (IRepository<TEntity, U>)this.repositories[type];
+        //}
+
+        //this seems to work better
+        public IMemberRepository MemberRepository
+        {
+            get
+            {
+
+                if (this.memberRepository == null)
+                {
+                    this.memberRepository = new MemberRepository(dbContext);
+                }
+                return memberRepository;
+            }
+        }
+
+        public IEduFundSystemRepository EduFundSystemRepository
+        {
+            get
+            {
+
+                if (this.edufundRepository == null)
+                {
+                    this.edufundRepository = new EduFundSystemRepository(dbContext);
+                }
+                return edufundRepository;
+            }
         }
         /// <summary>
         /// Disposes all external resources.

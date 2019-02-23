@@ -35,9 +35,10 @@ namespace Edufund.Data.Configuration
             databaseTypeInstance.EnableDatabase(services, connectionOptions);
 
             // Entity framework configuration
-            services.AddDbContext<IDbContext, EduFundContext>(options =>
-                databaseTypeInstance.GetContextBuilder(options, connectionOptions, connectionString), 
-                ServiceLifetime.Scoped);
+            services.AddDbContext<EduFundContext>(options =>
+                databaseTypeInstance.GetContextBuilder(options, connectionOptions, connectionString));
+
+            services.AddScoped<IDbContext, EduFundContext>();
         }
 
         /// <summary>

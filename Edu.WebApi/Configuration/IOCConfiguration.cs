@@ -20,7 +20,10 @@ namespace Edu.WebApi.Configuration
         {
             services.AddScoped(typeof(IRepository<,>), typeof(EfRepository<,>));
             services.AddScoped(typeof(IAsyncRepository<,>), typeof(EfRepository<,>));
+            services.AddScoped<IMemberRepository, MemberRepository>();
+            services.AddScoped<IEduFundSystemRepository, EduFundSystemRepository>();
             services.AddScoped<IEduFundSystemService, EduFundSystemService>();
+            services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IUnitofWork, UnitofWork>();
             services.AddTransient<IDatabaseManager, EduContextDatabaseManager>();
             services.AddTransient<IContextFactory, EdufundContextFactory>();

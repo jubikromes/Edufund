@@ -23,7 +23,7 @@ namespace Edufund.Infrastructure.Services.Implementations
         {
             var response = new BaseResponseModel { };
 
-            var eduFundRepo = _unitofWork.GetRepository<EduFundSystem, int>();
+            var eduFundRepo = _unitofWork.EduFundSystemRepository;
             var createdEntity = eduFundRepo.Add(new EduFundSystem
             {
                 Description = systemDto.Description,
@@ -38,7 +38,7 @@ namespace Edufund.Infrastructure.Services.Implementations
         public ResponseModel<EduFundSystemDto> GetEduFund(int id)
         {
             var response = new ResponseModel<EduFundSystemDto> { };
-            var eduFundRepo = _unitofWork.GetRepository<EduFundSystem, int>();
+            var eduFundRepo = _unitofWork.EduFundSystemRepository;
             var edufund = eduFundRepo.GetById(id);
             if (edufund == null)
             {

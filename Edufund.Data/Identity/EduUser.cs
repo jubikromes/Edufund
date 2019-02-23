@@ -21,6 +21,9 @@ namespace Edufund.Data.Identity
         public string SecurityAnswer1 { get; set; }
         public string SecurityAnswer2 { get; set; }
         public string SecurityAnswer3 { get; set; }
+        public string LastName { get; set; }
+        public string FirstName { get; set; }
+
 
         public string Address1 { get; set; }
         public string Address2 { get; set; }
