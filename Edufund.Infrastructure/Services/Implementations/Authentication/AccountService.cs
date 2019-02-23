@@ -17,24 +17,28 @@ using System.Threading.Tasks;
 using System.Linq;
 using Newtonsoft.Json;
 using Edufund.Infrastructure.Utilities.Helpers;
+using Edufund.Data.Configuration.Helpers;
 
 namespace Edufund.Infrastructure.Services.Implementations
 {
     public class AccountService : IAccountService
     {
         private readonly UserManager<EduUser> _userManager;
+        private readonly UserManager<EduRole> _roleManager;
         private readonly IJwtFactory _jwtFactory;
         private readonly JwtIssuerOptions _jwtOptions;
         //use repository instead
         private readonly IUnitofWork _unitofWork;
         public AccountService(UserManager<EduUser> userManager,
                     IJwtFactory jwtFactory,
-                    IOptions<JwtIssuerOptions> jwtOptions, IUnitofWork unitofWork)
+                    IOptions<JwtIssuerOptions> jwtOptions,
+                    IUnitofWork unitofWork, UserManager<EduRole> roleManager)
         {
             _userManager = userManager;
             _jwtFactory = jwtFactory;
             _jwtOptions = jwtOptions.Value;
             _unitofWork = unitofWork;
+            _roleManager = roleManager;
         }
         public async Task<BaseResponseModel> RegisterAsync(RegistrationModel model)
         {
@@ -49,12 +53,13 @@ namespace Edufund.Infrastructure.Services.Implementations
                 FirstName = model.FirstName,
                 UserName = model.UserName,
             };
-            var identityResult = await _userManager.CreateAsync(user,  model.Password);
-            if (!identityResult.Succeeded)
+            var identityUserResult = await _userManager.CreateAsync(user,  model.Password);
+            if (!identityUserResult.Succeeded)
             {
-                response.Message = identityResult.Errors.ToList().FirstOrDefault()?.Description;
+                response.Message = identityUserResult.Errors.ToList().FirstOrDefault()?.Description;
                 return response;
             }
+            var identityRoleResult = await _userManager.AddToRoleAsync(user, Settings.MemberRole);
             response.Message = "User created successfully.";
             response.HasError = false;
             var memberToAdd = new Member
@@ -84,6 +89,7 @@ namespace Edufund.Infrastructure.Services.Implementations
             var jwt = await Tokens.GenerateJwt(identity, _jwtFactory, model.UserName, _jwtOptions, new JsonSerializerSettings { Formatting = Formatting.Indented });
             response.Result = jwt;
             response.HasError = false;
+            response.Message = "User logged in.";
             return response;
         }
         private async Task<ClaimsIdentity> GetClaims(string username, string password)

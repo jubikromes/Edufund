@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Edufund.Data.Configuration.Helpers
 {
-    public static class Constants
+    public static class Settings
     {
         /// <summary>
         /// Name of the connection string
@@ -46,5 +46,13 @@ namespace Edufund.Data.Configuration.Helpers
         /// Guid of the first tenant
         /// </summary>
         public const string Tenant2Guid = "e7e73238-662f-4da2-b3a5-89f4abb87969";
+
+
+        ///Roles
+        ///
+        public const string AdminRole = "Administrator";
+        public const string SupportRole = "Support";
+        public const string MemberRole = "Member";
+
     }
 }

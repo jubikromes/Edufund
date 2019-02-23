@@ -18,7 +18,7 @@ namespace Edu.WebApi.Configuration
         /// <param name="configuration">The configuration.</param>
         public static void ConfigureService(IServiceCollection services, IConfigurationRoot configuration)
         {
-            services.Configure<ConnectionSettings>(configuration.GetSection(Constants.ConnectionStrings));
+            services.Configure<ConnectionSettings>(configuration.GetSection(Settings.ConnectionStrings));
         }
     }
 }

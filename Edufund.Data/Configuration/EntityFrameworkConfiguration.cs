@@ -23,7 +23,7 @@ namespace Edufund.Data.Configuration
         /// <param name="configuration">The configuration.</param>
         public static void ConfigureService(IServiceCollection services, IConfigurationRoot configuration)
         {
-            string connectionString = configuration.GetConnectionString(Constants.DefaultConnection);
+            string connectionString = configuration.GetConnectionString(Settings.DefaultConnection);
 
             // Database connection settings
             var connectionOptions = services.BuildServiceProvider().GetRequiredService<IOptions<ConnectionSettings>>();

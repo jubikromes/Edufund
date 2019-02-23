@@ -24,7 +24,7 @@ namespace Edufund.Infrastructure.Utilities.Helpers
                 //roles 
                 public const string Role_Administrator = "admin";
                 public const string Role_Support = "support";
-                public const string Role_CarOwner = "carowner";
+                public const string Role_Member = "member";
 
                 //reference for permission access
                 //https://docs.microsoft.com/en-us/aspnet/core/security/authorization/secure-data?view=aspnetcore-2.1
