@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Edu.WebApi.Models;
 using Edufund.Infrastructure.Models;
 using Edufund.Infrastructure.Services.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Edu.WebApi.Controllers
@@ -25,6 +26,7 @@ namespace Edu.WebApi.Controllers
             return View();
         }
         [Route("register")]
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Register([FromBody]RegistrationModel model)
         {
@@ -34,6 +36,7 @@ namespace Edu.WebApi.Controllers
         }
         [Route("login")]
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody]CredentialsModel model)
         {
             var response = new ResponseModel<TokenViewModel> { };

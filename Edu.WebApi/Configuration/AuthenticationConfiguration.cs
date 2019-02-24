@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Edu.WebApi.Configuration
 {
-    public static class AuthConfiguration
+    public static class AuthenticationConfiguration
     {
        
         public static void ConfigureAuth(IServiceCollection services, IConfigurationSection jwtsectionOptions, SymmetricSecurityKey _signingKey)
@@ -44,16 +44,22 @@ namespace Edu.WebApi.Configuration
                 configureOptions.TokenValidationParameters = tokenValidationParameters;
                 configureOptions.SaveToken = true;
             });
-
-            var builder = services.AddIdentityCore<EduUser>(o =>
-            {
-                // configure identity options
-                o.Password.RequireDigit = false;
-                o.Password.RequireLowercase = false;
-                o.Password.RequireUppercase = false;
-                o.Password.RequireNonAlphanumeric = false;
-                o.Password.RequiredLength = 6;
+            var builder = services.AddIdentity<EduUser, EduRole>(p => {
+                p.Password.RequireDigit = false;
+                p.Password.RequireLowercase = false;
+                p.Password.RequireUppercase = false;
+                p.Password.RequireNonAlphanumeric = false;
+                p.Password.RequiredLength = 6;
             });
+            //var builder = services.AddIdentityCore<EduUser>(o =>
+            //{
+            //    // configure identity options
+            //    o.Password.RequireDigit = false;
+            //    o.Password.RequireLowercase = false;
+            //    o.Password.RequireUppercase = false;
+            //    o.Password.RequireNonAlphanumeric = false;
+            //    o.Password.RequiredLength = 6;
+            //});
             builder = new IdentityBuilder(builder.UserType, typeof(EduRole), builder.Services);
             builder.AddEntityFrameworkStores<EduFundContext>().AddDefaultTokenProviders();
 

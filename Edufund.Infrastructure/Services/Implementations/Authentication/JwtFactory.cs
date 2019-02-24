@@ -52,7 +52,8 @@ namespace Edufund.Infrastructure.Services.Implementations
             return new ClaimsIdentity(new GenericIdentity(userName, "Token"), new[]
             {
                 new Claim(Constants.Strings.JwtClaimIdentifiers.Id, id),
-                new Claim(Constants.Strings.JwtClaimIdentifiers.Pol_ApiAccess_Key, Constants.Strings.JwtClaims.Pol_ApiAccess),
+                new Claim(Constants.Strings.JwtClaimIdentifiers.Pol_ApiAccess_Key, 
+                    Constants.Strings.JwtClaims.Pol_ApiAccess),
 
             });
         }

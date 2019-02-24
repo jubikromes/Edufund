@@ -57,10 +57,12 @@ namespace Edu.WebApi
             EntityFrameworkConfiguration.ConfigureService(services, Configuration);
             services.AddSingleton<IJwtFactory, JwtFactory>();
             var jwtsectionOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
-            AuthConfiguration.ConfigureAuth(services, jwtsectionOptions, _signingKey);
+            AuthenticationConfiguration.ConfigureAuth(services, jwtsectionOptions, _signingKey);
             ConfigurationOptions.ConfigureService(services, Configuration);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             IOCConfiguration.ConfigureServices(services);
+
+            PolicyAuthConfiguration.ConfigureServices(services);
             services.AddAutoMapper();
             services.AddSwaggerGen(c =>
             {
