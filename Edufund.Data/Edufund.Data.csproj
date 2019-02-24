@@ -21,6 +21,10 @@
     <Compile Remove="Migrations\20190224021947_initial.cs" />
     <Compile Remove="Migrations\20190224022718_initial.cs" />
     <Compile Remove="Migrations\20190224023500_initial.cs" />
+    <Compile Remove="Migrations\20190224023726_initial.cs" />
+    <Compile Remove="Migrations\20190224090703_editedmember.cs" />
+    <Compile Remove="Migrations\20190224091311_fksetup.cs" />
+    <Compile Remove="Migrations\20190224091547_fksetup.cs" />
   </ItemGroup>
 
   <ItemGroup>

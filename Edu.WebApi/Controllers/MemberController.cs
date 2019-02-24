@@ -10,11 +10,14 @@ namespace Edu.WebApi.Controllers
     [Route("api/memberapi")]
     public class MemberController : Controller
     {
+        [Route("members")]
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
         [HttpPost]
+        [Route("addreferral")]
         public async Task<IActionResult> AddReferral(ReferralViewModel model)
         {
             return View();

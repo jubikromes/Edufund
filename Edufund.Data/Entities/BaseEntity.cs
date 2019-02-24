@@ -1,6 +1,7 @@
 ﻿using Edufund.Data.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Edufund.Data.Entities
@@ -14,10 +15,11 @@ namespace Edufund.Data.Entities
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
         public DateTime? ModifiedDate { get; set; }
-
-        public Guid? CreatedById { get; set; }
+        [ForeignKey("CreatedBy")]
+        public int? CreatedById { get; set; }
         public EduUser CreatedBy { get; set; }
-        public Guid? ModifiedById { get; set; }
+        [ForeignKey("ModifiedBy")]
+        public int? ModifiedById { get; set; }
         public EduUser ModifiedBy { get; set; }
 
     }

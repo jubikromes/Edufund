@@ -18,12 +18,14 @@ namespace Edu.WebApi.Controllers
         {
             _accountSvc = accountSvc;
         }
+        [HttpGet]
 
         public IActionResult Index()
         {
             return View();
         }
         [Route("register")]
+        [HttpPost]
         public async Task<IActionResult> Register([FromBody]RegistrationModel model)
         {
             var response = new BaseResponseModel { };
@@ -31,6 +33,7 @@ namespace Edu.WebApi.Controllers
             return Json(response);
         }
         [Route("login")]
+        [HttpPost]
         public async Task<IActionResult> Login([FromBody]CredentialsModel model)
         {
             var response = new ResponseModel<TokenViewModel> { };

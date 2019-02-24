@@ -24,7 +24,6 @@ namespace Edufund.Infrastructure.Services.Implementations
     public class AccountService : IAccountService
     {
         private readonly UserManager<EduUser> _userManager;
-        private readonly UserManager<EduRole> _roleManager;
         private readonly IJwtFactory _jwtFactory;
         private readonly JwtIssuerOptions _jwtOptions;
         //use repository instead
@@ -32,13 +31,12 @@ namespace Edufund.Infrastructure.Services.Implementations
         public AccountService(UserManager<EduUser> userManager,
                     IJwtFactory jwtFactory,
                     IOptions<JwtIssuerOptions> jwtOptions,
-                    IUnitofWork unitofWork, UserManager<EduRole> roleManager)
+                    IUnitofWork unitofWork)
         {
             _userManager = userManager;
             _jwtFactory = jwtFactory;
             _jwtOptions = jwtOptions.Value;
             _unitofWork = unitofWork;
-            _roleManager = roleManager;
         }
         public async Task<BaseResponseModel> RegisterAsync(RegistrationModel model)
         {
@@ -59,7 +57,7 @@ namespace Edufund.Infrastructure.Services.Implementations
                 response.Message = identityUserResult.Errors.ToList().FirstOrDefault()?.Description;
                 return response;
             }
-            var identityRoleResult = await _userManager.AddToRoleAsync(user, Settings.MemberRole);
+            //var identityRoleResult = await _userManager.AddToRoleAsync(user, Settings.MemberRole);
             response.Message = "User created successfully.";
             response.HasError = false;
             var memberToAdd = new Member

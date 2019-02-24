@@ -43,15 +43,6 @@ namespace Edufund.Data.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    Kyc = table.Column<int>(nullable: false),
-                    NextofKinName = table.Column<string>(nullable: true),
-                    NextofKinNumber = table.Column<string>(nullable: true),
-                    SecurityQuestion1 = table.Column<string>(nullable: true),
-                    SecurityQuestion2 = table.Column<string>(nullable: true),
-                    SecurityQuestion3 = table.Column<string>(nullable: true),
-                    SecurityAnswer1 = table.Column<string>(nullable: true),
-                    SecurityAnswer2 = table.Column<string>(nullable: true),
-                    SecurityAnswer3 = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     FirstName = table.Column<string>(nullable: true),
                     Address1 = table.Column<string>(nullable: true),
@@ -176,10 +167,8 @@ namespace Edufund.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     ModifiedDate = table.Column<DateTime>(nullable: true),
-                    CreatedById = table.Column<Guid>(nullable: true),
-                    CreatedById1 = table.Column<int>(nullable: true),
-                    ModifiedById = table.Column<Guid>(nullable: true),
-                    ModifiedById1 = table.Column<int>(nullable: true),
+                    CreatedById = table.Column<int>(nullable: true),
+                    ModifiedById = table.Column<int>(nullable: true),
                     Title = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     EntryFee = table.Column<decimal>(nullable: false)
@@ -188,14 +177,14 @@ namespace Edufund.Data.Migrations
                 {
                     table.PrimaryKey("PK_EduFundSystem", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EduFundSystem_AspNetUsers_CreatedById1",
-                        column: x => x.CreatedById1,
+                        name: "FK_EduFundSystem_AspNetUsers_CreatedById",
+                        column: x => x.CreatedById,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EduFundSystem_AspNetUsers_ModifiedById1",
-                        column: x => x.ModifiedById1,
+                        name: "FK_EduFundSystem_AspNetUsers_ModifiedById",
+                        column: x => x.ModifiedById,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -208,10 +197,8 @@ namespace Edufund.Data.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     ModifiedDate = table.Column<DateTime>(nullable: true),
-                    CreatedById = table.Column<Guid>(nullable: true),
-                    CreatedById1 = table.Column<int>(nullable: true),
-                    ModifiedById = table.Column<Guid>(nullable: true),
-                    ModifiedById1 = table.Column<int>(nullable: true),
+                    CreatedById = table.Column<int>(nullable: true),
+                    ModifiedById = table.Column<int>(nullable: true),
                     Title = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Balance = table.Column<decimal>(nullable: false)
@@ -220,14 +207,14 @@ namespace Edufund.Data.Migrations
                 {
                     table.PrimaryKey("PK_EduWallet", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EduWallet_AspNetUsers_CreatedById1",
-                        column: x => x.CreatedById1,
+                        name: "FK_EduWallet_AspNetUsers_CreatedById",
+                        column: x => x.CreatedById,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EduWallet_AspNetUsers_ModifiedById1",
-                        column: x => x.ModifiedById1,
+                        name: "FK_EduWallet_AspNetUsers_ModifiedById",
+                        column: x => x.ModifiedById,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -241,10 +228,8 @@ namespace Edufund.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     ModifiedDate = table.Column<DateTime>(nullable: true),
-                    CreatedById = table.Column<Guid>(nullable: true),
-                    CreatedById1 = table.Column<int>(nullable: true),
-                    ModifiedById = table.Column<Guid>(nullable: true),
-                    ModifiedById1 = table.Column<int>(nullable: true),
+                    CreatedById = table.Column<int>(nullable: true),
+                    ModifiedById = table.Column<int>(nullable: true),
                     Balance = table.Column<decimal>(nullable: false),
                     Name = table.Column<string>(nullable: true)
                 },
@@ -252,14 +237,14 @@ namespace Edufund.Data.Migrations
                 {
                     table.PrimaryKey("PK_MemberWallet", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MemberWallet_AspNetUsers_CreatedById1",
-                        column: x => x.CreatedById1,
+                        name: "FK_MemberWallet_AspNetUsers_CreatedById",
+                        column: x => x.CreatedById,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_MemberWallet_AspNetUsers_ModifiedById1",
-                        column: x => x.ModifiedById1,
+                        name: "FK_MemberWallet_AspNetUsers_ModifiedById",
+                        column: x => x.ModifiedById,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -273,10 +258,8 @@ namespace Edufund.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     ModifiedDate = table.Column<DateTime>(nullable: true),
-                    CreatedById = table.Column<Guid>(nullable: true),
-                    CreatedById1 = table.Column<int>(nullable: true),
-                    ModifiedById = table.Column<Guid>(nullable: true),
-                    ModifiedById1 = table.Column<int>(nullable: true),
+                    CreatedById = table.Column<int>(nullable: true),
+                    ModifiedById = table.Column<int>(nullable: true),
                     InitialInvestedCapital = table.Column<decimal>(nullable: false),
                     AutoRenew = table.Column<bool>(nullable: false),
                     MemberCount = table.Column<int>(nullable: false),
@@ -292,8 +275,8 @@ namespace Edufund.Data.Migrations
                 {
                     table.PrimaryKey("PK_Board", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Board_AspNetUsers_CreatedById1",
-                        column: x => x.CreatedById1,
+                        name: "FK_Board_AspNetUsers_CreatedById",
+                        column: x => x.CreatedById,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -304,8 +287,8 @@ namespace Edufund.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Board_AspNetUsers_ModifiedById1",
-                        column: x => x.ModifiedById1,
+                        name: "FK_Board_AspNetUsers_ModifiedById",
+                        column: x => x.ModifiedById,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -319,23 +302,30 @@ namespace Edufund.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     ModifiedDate = table.Column<DateTime>(nullable: true),
-                    CreatedById = table.Column<Guid>(nullable: true),
-                    CreatedById1 = table.Column<int>(nullable: true),
-                    ModifiedById = table.Column<Guid>(nullable: true),
-                    ModifiedById1 = table.Column<int>(nullable: true),
+                    CreatedById = table.Column<int>(nullable: true),
+                    ModifiedById = table.Column<int>(nullable: true),
                     Cycle = table.Column<int>(nullable: false),
                     ParentMemberId = table.Column<int>(nullable: true),
                     OrderBy = table.Column<int>(nullable: true),
                     WalletId = table.Column<int>(nullable: true),
                     MemberWalletId = table.Column<int>(nullable: true),
-                    EduUserId = table.Column<int>(nullable: false)
+                    EduUserId = table.Column<int>(nullable: true),
+                    Kyc = table.Column<int>(nullable: false),
+                    NextofKinName = table.Column<string>(nullable: true),
+                    NextofKinNumber = table.Column<string>(nullable: true),
+                    SecurityQuestion1 = table.Column<string>(nullable: true),
+                    SecurityQuestion2 = table.Column<string>(nullable: true),
+                    SecurityQuestion3 = table.Column<string>(nullable: true),
+                    SecurityAnswer1 = table.Column<string>(nullable: true),
+                    SecurityAnswer2 = table.Column<string>(nullable: true),
+                    SecurityAnswer3 = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Member", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Member_AspNetUsers_CreatedById1",
-                        column: x => x.CreatedById1,
+                        name: "FK_Member_AspNetUsers_CreatedById",
+                        column: x => x.CreatedById,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -344,7 +334,7 @@ namespace Edufund.Data.Migrations
                         column: x => x.EduUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Member_MemberWallet_MemberWalletId",
                         column: x => x.MemberWalletId,
@@ -352,8 +342,8 @@ namespace Edufund.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Member_AspNetUsers_ModifiedById1",
-                        column: x => x.ModifiedById1,
+                        name: "FK_Member_AspNetUsers_ModifiedById",
+                        column: x => x.ModifiedById,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -367,10 +357,8 @@ namespace Edufund.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     ModifiedDate = table.Column<DateTime>(nullable: true),
-                    CreatedById = table.Column<Guid>(nullable: true),
-                    CreatedById1 = table.Column<int>(nullable: true),
-                    ModifiedById = table.Column<Guid>(nullable: true),
-                    ModifiedById1 = table.Column<int>(nullable: true),
+                    CreatedById = table.Column<int>(nullable: true),
+                    ModifiedById = table.Column<int>(nullable: true),
                     ReferedId = table.Column<int>(nullable: true),
                     RefererId = table.Column<int>(nullable: true)
                 },
@@ -378,14 +366,14 @@ namespace Edufund.Data.Migrations
                 {
                     table.PrimaryKey("PK_Referral", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Referral_AspNetUsers_CreatedById1",
-                        column: x => x.CreatedById1,
+                        name: "FK_Referral_AspNetUsers_CreatedById",
+                        column: x => x.CreatedById,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Referral_AspNetUsers_ModifiedById1",
-                        column: x => x.ModifiedById1,
+                        name: "FK_Referral_AspNetUsers_ModifiedById",
+                        column: x => x.ModifiedById,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -443,9 +431,9 @@ namespace Edufund.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Board_CreatedById1",
+                name: "IX_Board_CreatedById",
                 table: "Board",
-                column: "CreatedById1");
+                column: "CreatedById");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Board_EduFundSystemId",
@@ -453,34 +441,34 @@ namespace Edufund.Data.Migrations
                 column: "EduFundSystemId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Board_ModifiedById1",
+                name: "IX_Board_ModifiedById",
                 table: "Board",
-                column: "ModifiedById1");
+                column: "ModifiedById");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EduFundSystem_CreatedById1",
+                name: "IX_EduFundSystem_CreatedById",
                 table: "EduFundSystem",
-                column: "CreatedById1");
+                column: "CreatedById");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EduFundSystem_ModifiedById1",
+                name: "IX_EduFundSystem_ModifiedById",
                 table: "EduFundSystem",
-                column: "ModifiedById1");
+                column: "ModifiedById");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EduWallet_CreatedById1",
+                name: "IX_EduWallet_CreatedById",
                 table: "EduWallet",
-                column: "CreatedById1");
+                column: "CreatedById");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EduWallet_ModifiedById1",
+                name: "IX_EduWallet_ModifiedById",
                 table: "EduWallet",
-                column: "ModifiedById1");
+                column: "ModifiedById");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Member_CreatedById1",
+                name: "IX_Member_CreatedById",
                 table: "Member",
-                column: "CreatedById1");
+                column: "CreatedById");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Member_EduUserId",
@@ -493,29 +481,29 @@ namespace Edufund.Data.Migrations
                 column: "MemberWalletId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Member_ModifiedById1",
+                name: "IX_Member_ModifiedById",
                 table: "Member",
-                column: "ModifiedById1");
+                column: "ModifiedById");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MemberWallet_CreatedById1",
+                name: "IX_MemberWallet_CreatedById",
                 table: "MemberWallet",
-                column: "CreatedById1");
+                column: "CreatedById");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MemberWallet_ModifiedById1",
+                name: "IX_MemberWallet_ModifiedById",
                 table: "MemberWallet",
-                column: "ModifiedById1");
+                column: "ModifiedById");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Referral_CreatedById1",
+                name: "IX_Referral_CreatedById",
                 table: "Referral",
-                column: "CreatedById1");
+                column: "CreatedById");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Referral_ModifiedById1",
+                name: "IX_Referral_ModifiedById",
                 table: "Referral",
-                column: "ModifiedById1");
+                column: "ModifiedById");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Referral_ReferedId",

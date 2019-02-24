@@ -65,6 +65,7 @@ namespace Edu.WebApi
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+                c.ResolveConflictingActions(p => p.First());
             });
             AutoMapperConfiguration.Configure();
             //services.AddTransient<IEmailSender, EmailSender>();
