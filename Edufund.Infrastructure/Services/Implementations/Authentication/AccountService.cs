@@ -100,7 +100,7 @@ namespace Edufund.Infrastructure.Services.Implementations
             var userToVerify = await _userManager.FindByNameAsync(username);
             if (userToVerify == null) return await Task.FromResult<ClaimsIdentity>(null);
             if (await _userManager.CheckPasswordAsync(userToVerify, password))
-                return await Task.FromResult(_jwtFactory.GenerateClaimsIdentity(username, userToVerify.Id));
+                return await Task.FromResult(_jwtFactory.GenerateClaimsIdentity(username, userToVerify.UserName));
             return await Task.FromResult<ClaimsIdentity>(null);
         }
     }

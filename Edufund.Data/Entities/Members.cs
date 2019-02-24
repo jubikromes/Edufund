@@ -21,7 +21,7 @@ namespace Edufund.Data.Entities
 
         public MemberWallet MemberWallet { get; set; }
 
-        public string EduUserId { get; set; }
+        public int EduUserId { get; set; }
         public EduUser EduUser { get; set; }
 
     }

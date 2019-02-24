@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Edufund.Data.Identity
 {
-    public class EduRole : IdentityRole<string>
+    public class EduRole : IdentityRole<int>
     {
         public virtual ICollection<EduUserRole> UserRoles { get; set; }
         public virtual ICollection<EduRoleClaim> RoleClaims { get; set; }

@@ -12,10 +12,6 @@ namespace Edufund.Data.EntityMapper
         public void Configure(EntityTypeBuilder<Member> builder)
         {
             builder.HasKey(p => p.Id);
-
-          
-
-
         }
     }
 }

@@ -7,7 +7,7 @@ using System;
 namespace Edufund.Data.Context
 {
     public class EduFundContext : IdentityDbContext<
-        EduUser, EduRole, string,
+        EduUser, EduRole, int,
         EduUserClaim, EduUserRole, EduUserLogin,
         EduRoleClaim, EduUserToken>, IDbContext
     {
@@ -34,31 +34,31 @@ namespace Edufund.Data.Context
             {
                 // Each User can have many UserClaims
                 b.HasMany(e => e.Claims)
-                    .WithOne()
+                    .WithOne(p => p.User)
                     .HasForeignKey(uc => uc.UserId)
-                    .IsRequired();
+                    .IsRequired().OnDelete(DeleteBehavior.Cascade);
                 // Each User can have many UserLogins
                 b.HasMany(e => e.Logins)
-                    .WithOne()
+                    .WithOne(p => p.User)
                     .HasForeignKey(ul => ul.UserId)
-                    .IsRequired();
+                    .IsRequired().OnDelete(DeleteBehavior.Cascade);
 
                 // Each User can have many UserTokens
                 b.HasMany(e => e.Tokens)
-                    .WithOne()
+                    .WithOne(p => p.User)
                     .HasForeignKey(ut => ut.UserId)
-                    .IsRequired();
+                    .IsRequired().OnDelete(DeleteBehavior.Cascade);
 
                 // Each User can have many entries in the UserRole join table
                 b.HasMany(e => e.UserRoles)
-                    .WithOne()
+                    .WithOne(p => p.User)
                     .HasForeignKey(ur => ur.UserId)
-                    .IsRequired();
+                    .IsRequired().OnDelete(DeleteBehavior.Cascade);
 
-                b.HasMany(e => e.UserRoles)
-                    .WithOne(e => e.User)
-                    .HasForeignKey(ur => ur.UserId)
-                    .IsRequired();
+                //b.HasMany(e => e.UserRoles)
+                //    .WithOne(e => e.User)
+                //    .HasForeignKey(ur => ur.UserId)
+                //    .IsRequired().OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<EduRole>(b =>

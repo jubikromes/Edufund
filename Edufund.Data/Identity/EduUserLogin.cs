@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Edufund.Data.Identity
 {
-    public class EduUserLogin : IdentityUserLogin<string>
+    public class EduUserLogin : IdentityUserLogin<int>
     {
         public virtual EduUser User { get; set; }
 

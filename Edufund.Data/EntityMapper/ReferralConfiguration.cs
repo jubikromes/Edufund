@@ -15,7 +15,6 @@ namespace Edufund.Data.EntityMapper
 
             builder.HasOne(p => p.Refered).WithMany(t => t.AllReferred).HasForeignKey(p => p.ReferedId);
             builder.HasOne(p => p.Referer).WithMany(t => t.Referrals).HasForeignKey(p => p.RefererId);
-
         }
     }
 }

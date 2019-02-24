@@ -27,6 +27,10 @@ namespace Edufund.Data.Migrations
 
                     b.Property<bool>("AutoRenew");
 
+                    b.Property<Guid?>("CreatedById");
+
+                    b.Property<int?>("CreatedById1");
+
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<int>("Cycles");
@@ -38,6 +42,10 @@ namespace Edufund.Data.Migrations
                     b.Property<decimal>("InitialInvestedCapital");
 
                     b.Property<int>("MemberCount");
+
+                    b.Property<Guid?>("ModifiedById");
+
+                    b.Property<int?>("ModifiedById1");
 
                     b.Property<DateTime?>("ModifiedDate");
 
@@ -51,7 +59,11 @@ namespace Edufund.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CreatedById1");
+
                     b.HasIndex("EduFundSystemId");
+
+                    b.HasIndex("ModifiedById1");
 
                     b.ToTable("Board");
                 });
@@ -62,17 +74,29 @@ namespace Edufund.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<Guid?>("CreatedById");
+
+                    b.Property<int?>("CreatedById1");
+
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<string>("Description");
 
                     b.Property<decimal>("EntryFee");
 
+                    b.Property<Guid?>("ModifiedById");
+
+                    b.Property<int?>("ModifiedById1");
+
                     b.Property<DateTime?>("ModifiedDate");
 
                     b.Property<string>("Title");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatedById1");
+
+                    b.HasIndex("ModifiedById1");
 
                     b.ToTable("EduFundSystem");
                 });
@@ -84,15 +108,27 @@ namespace Edufund.Data.Migrations
 
                     b.Property<decimal>("Balance");
 
+                    b.Property<Guid?>("CreatedById");
+
+                    b.Property<int?>("CreatedById1");
+
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<string>("Description");
+
+                    b.Property<Guid?>("ModifiedById");
+
+                    b.Property<int?>("ModifiedById1");
 
                     b.Property<DateTime?>("ModifiedDate");
 
                     b.Property<string>("Title");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatedById1");
+
+                    b.HasIndex("ModifiedById1");
 
                     b.ToTable("EduWallet");
                 });
@@ -103,13 +139,21 @@ namespace Edufund.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<Guid?>("CreatedById");
+
+                    b.Property<int?>("CreatedById1");
+
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<int>("Cycle");
 
-                    b.Property<string>("EduUserId");
+                    b.Property<int>("EduUserId");
 
                     b.Property<int?>("MemberWalletId");
+
+                    b.Property<Guid?>("ModifiedById");
+
+                    b.Property<int?>("ModifiedById1");
 
                     b.Property<DateTime?>("ModifiedDate");
 
@@ -121,9 +165,13 @@ namespace Edufund.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CreatedById1");
+
                     b.HasIndex("EduUserId");
 
                     b.HasIndex("MemberWalletId");
+
+                    b.HasIndex("ModifiedById1");
 
                     b.ToTable("Member");
                 });
@@ -136,13 +184,25 @@ namespace Edufund.Data.Migrations
 
                     b.Property<decimal>("Balance");
 
+                    b.Property<Guid?>("CreatedById");
+
+                    b.Property<int?>("CreatedById1");
+
                     b.Property<DateTime>("CreatedDate");
+
+                    b.Property<Guid?>("ModifiedById");
+
+                    b.Property<int?>("ModifiedById1");
 
                     b.Property<DateTime?>("ModifiedDate");
 
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatedById1");
+
+                    b.HasIndex("ModifiedById1");
 
                     b.ToTable("MemberWallet");
                 });
@@ -153,7 +213,15 @@ namespace Edufund.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<Guid?>("CreatedById");
+
+                    b.Property<int?>("CreatedById1");
+
                     b.Property<DateTime>("CreatedDate");
+
+                    b.Property<Guid?>("ModifiedById");
+
+                    b.Property<int?>("ModifiedById1");
 
                     b.Property<DateTime?>("ModifiedDate");
 
@@ -162,6 +230,10 @@ namespace Edufund.Data.Migrations
                     b.Property<int?>("RefererId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatedById1");
+
+                    b.HasIndex("ModifiedById1");
 
                     b.HasIndex("ReferedId");
 
@@ -172,8 +244,9 @@ namespace Edufund.Data.Migrations
 
             modelBuilder.Entity("Edufund.Data.Identity.EduRole", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -204,8 +277,7 @@ namespace Edufund.Data.Migrations
 
                     b.Property<string>("ClaimValue");
 
-                    b.Property<string>("RoleId")
-                        .IsRequired();
+                    b.Property<int>("RoleId");
 
                     b.HasKey("Id");
 
@@ -216,8 +288,9 @@ namespace Edufund.Data.Migrations
 
             modelBuilder.Entity("Edufund.Data.Identity.EduUser", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("AccessFailedCount");
 
@@ -301,16 +374,11 @@ namespace Edufund.Data.Migrations
 
                     b.Property<string>("ClaimValue");
 
-                    b.Property<string>("UserId")
-                        .IsRequired();
-
-                    b.Property<string>("UserId1");
+                    b.Property<int>("UserId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("AspNetUserClaims");
                 });
@@ -323,25 +391,20 @@ namespace Edufund.Data.Migrations
 
                     b.Property<string>("ProviderDisplayName");
 
-                    b.Property<string>("UserId")
-                        .IsRequired();
-
-                    b.Property<string>("UserId1");
+                    b.Property<int>("UserId");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
                     b.HasIndex("UserId");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("AspNetUserLogins");
                 });
 
             modelBuilder.Entity("Edufund.Data.Identity.EduUserRole", b =>
                 {
-                    b.Property<string>("UserId");
+                    b.Property<int>("UserId");
 
-                    b.Property<string>("RoleId");
+                    b.Property<int>("RoleId");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -352,44 +415,98 @@ namespace Edufund.Data.Migrations
 
             modelBuilder.Entity("Edufund.Data.Identity.EduUserToken", b =>
                 {
-                    b.Property<string>("UserId");
+                    b.Property<int>("UserId");
 
                     b.Property<string>("LoginProvider");
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("UserId1");
-
                     b.Property<string>("Value");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("AspNetUserTokens");
                 });
 
             modelBuilder.Entity("Edufund.Data.Entities.Board", b =>
                 {
+                    b.HasOne("Edufund.Data.Identity.EduUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById1");
+
                     b.HasOne("Edufund.Data.Entities.EduFundSystem", "EduFundSystem")
                         .WithMany("Boards")
                         .HasForeignKey("EduFundSystemId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Edufund.Data.Identity.EduUser", "ModifiedBy")
+                        .WithMany()
+                        .HasForeignKey("ModifiedById1");
+                });
+
+            modelBuilder.Entity("Edufund.Data.Entities.EduFundSystem", b =>
+                {
+                    b.HasOne("Edufund.Data.Identity.EduUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById1");
+
+                    b.HasOne("Edufund.Data.Identity.EduUser", "ModifiedBy")
+                        .WithMany()
+                        .HasForeignKey("ModifiedById1");
+                });
+
+            modelBuilder.Entity("Edufund.Data.Entities.EduWallet", b =>
+                {
+                    b.HasOne("Edufund.Data.Identity.EduUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById1");
+
+                    b.HasOne("Edufund.Data.Identity.EduUser", "ModifiedBy")
+                        .WithMany()
+                        .HasForeignKey("ModifiedById1");
                 });
 
             modelBuilder.Entity("Edufund.Data.Entities.Member", b =>
                 {
+                    b.HasOne("Edufund.Data.Identity.EduUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById1");
+
                     b.HasOne("Edufund.Data.Identity.EduUser", "EduUser")
                         .WithMany()
-                        .HasForeignKey("EduUserId");
+                        .HasForeignKey("EduUserId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Edufund.Data.Entities.MemberWallet", "MemberWallet")
                         .WithMany()
                         .HasForeignKey("MemberWalletId");
+
+                    b.HasOne("Edufund.Data.Identity.EduUser", "ModifiedBy")
+                        .WithMany()
+                        .HasForeignKey("ModifiedById1");
+                });
+
+            modelBuilder.Entity("Edufund.Data.Entities.MemberWallet", b =>
+                {
+                    b.HasOne("Edufund.Data.Identity.EduUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById1");
+
+                    b.HasOne("Edufund.Data.Identity.EduUser", "ModifiedBy")
+                        .WithMany()
+                        .HasForeignKey("ModifiedById1");
                 });
 
             modelBuilder.Entity("Edufund.Data.Entities.Referral", b =>
                 {
+                    b.HasOne("Edufund.Data.Identity.EduUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById1");
+
+                    b.HasOne("Edufund.Data.Identity.EduUser", "ModifiedBy")
+                        .WithMany()
+                        .HasForeignKey("ModifiedById1");
+
                     b.HasOne("Edufund.Data.Entities.Member", "Refered")
                         .WithMany("AllReferred")
                         .HasForeignKey("ReferedId");
@@ -409,26 +526,18 @@ namespace Edufund.Data.Migrations
 
             modelBuilder.Entity("Edufund.Data.Identity.EduUserClaim", b =>
                 {
-                    b.HasOne("Edufund.Data.Identity.EduUser")
+                    b.HasOne("Edufund.Data.Identity.EduUser", "User")
                         .WithMany("Claims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Edufund.Data.Identity.EduUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1");
                 });
 
             modelBuilder.Entity("Edufund.Data.Identity.EduUserLogin", b =>
                 {
-                    b.HasOne("Edufund.Data.Identity.EduUser")
+                    b.HasOne("Edufund.Data.Identity.EduUser", "User")
                         .WithMany("Logins")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Edufund.Data.Identity.EduUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1");
                 });
 
             modelBuilder.Entity("Edufund.Data.Identity.EduUserRole", b =>
@@ -446,14 +555,10 @@ namespace Edufund.Data.Migrations
 
             modelBuilder.Entity("Edufund.Data.Identity.EduUserToken", b =>
                 {
-                    b.HasOne("Edufund.Data.Identity.EduUser")
+                    b.HasOne("Edufund.Data.Identity.EduUser", "User")
                         .WithMany("Tokens")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Edufund.Data.Identity.EduUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1");
                 });
 #pragma warning restore 612, 618
         }

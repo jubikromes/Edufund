@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Edufund.Data.Identity
 {
-    public class EduUserClaim : IdentityUserClaim<string>
+    public class EduUserClaim : IdentityUserClaim<int>
     {
         public virtual EduUser User { get; set; }
     }

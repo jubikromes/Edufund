@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Edufund.Data.Identity;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -13,5 +14,11 @@ namespace Edufund.Data.Entities
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
         public DateTime? ModifiedDate { get; set; }
+
+        public Guid? CreatedById { get; set; }
+        public EduUser CreatedBy { get; set; }
+        public Guid? ModifiedById { get; set; }
+        public EduUser ModifiedBy { get; set; }
+
     }
 }
