@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Edu.WebApi.Controllers
 {
-    [Authorize(Policy = Constants.Strings.JwtClaimIdentifiers.Pol_ApiAccess_Key, AuthenticationSchemes = "Bearer")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class BaseController : Controller
     {
 

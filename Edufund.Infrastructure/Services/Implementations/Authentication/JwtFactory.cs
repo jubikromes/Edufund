@@ -35,7 +35,7 @@ namespace Edufund.Infrastructure.Services.Implementations
             };
             // Create the JWT security token and encode it.
             var jwt = new JwtSecurityToken(
-                issuer: _jwtOptions.Issuer,
+                issuer: _jwtOptions.Audience,
                 audience: _jwtOptions.Audience,
                 claims: claims,
                 notBefore: _jwtOptions.NotBefore,

@@ -1,6 +1,7 @@
 ﻿using Edufund.Data.Context;
 using Edufund.Data.Identity;
 using Edufund.Infrastructure.Models;
+using Edufund.Infrastructure.Utilities.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -26,10 +27,11 @@ namespace Edu.WebApi.Configuration
             });
             var tokenValidationParameters = new TokenValidationParameters
             {
-                ValidateIssuer = true,
-                ValidIssuer = jwtsectionOptions[nameof(JwtIssuerOptions.Issuer)],
+                
+                ValidateIssuer = true, 
+                ValidIssuer = jwtsectionOptions[nameof(JwtIssuerOptions.Audience)],
                 ValidateAudience = true,
-                ValidAudience = jwtsectionOptions[nameof(JwtIssuerOptions.Issuer)],
+                ValidAudience = jwtsectionOptions[nameof(JwtIssuerOptions.Audience)],
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = _signingKey,
                 RequireExpirationTime = false,
@@ -63,10 +65,11 @@ namespace Edu.WebApi.Configuration
             builder = new IdentityBuilder(builder.UserType, typeof(EduRole), builder.Services);
             builder.AddEntityFrameworkStores<EduFundContext>().AddDefaultTokenProviders();
 
-            //services.AddAuthorization(options => {
-            //    options.AddPolicy(Constants.Strings.JwtClaimIdentifiers.Pol_ApiAccess_Key, policy => policy.RequireClaim(Constants.Strings.JwtClaimIdentifiers.Rol, Constants.Strings.JwtClaims.Pol_ApiAccess));
-            //    options.AddPolicy(Constants.Strings.JwtClaimIdentifiers.Pol_ApproveVehicle_Key, policy => policy.RequireClaim(Constants.Strings.JwtClaims.Pol_ApproveVehicle));
-            //});
+            services.AddAuthorization(options =>
+            {
+                //options.AddPolicy(Constants.Strings.JwtClaimIdentifiers.Pol_ApiAccess_Key, policy => policy.RequireClaim(Constants.Strings.JwtClaimIdentifiers.Pol_ApiAccess_Key, Constants.Strings.JwtClaims.Pol_ApiAccess));
+                //options.AddPolicy(Constants.Strings.JwtClaimIdentifiers.Pol_ApproveVehicle_Key, policy => policy.RequireClaim(Constants.Strings.JwtClaims.Pol_ApproveVehicle));
+            });
         }
     }
 }

@@ -12,6 +12,7 @@ namespace Edu.WebApi.Controllers
         {
             return Json("Welcome to the Educollect Dashboard");
         }
+        [HttpGet]
         [Route("loginreports")]
         public IActionResult LoginReports()
         {

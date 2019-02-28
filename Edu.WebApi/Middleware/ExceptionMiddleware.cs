@@ -41,7 +41,7 @@ namespace Edu.WebApi.Middleware
             };
             try
             {
-                await this.request(context);
+                await request(context);
             }
             catch (Exception exception)
             {
