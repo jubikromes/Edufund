@@ -11,6 +11,6 @@ namespace Edu.WebApi.Controllers
     [Authorize(AuthenticationSchemes = "Bearer")]
     public class BaseController : Controller
     {
-
+         
     }
 }

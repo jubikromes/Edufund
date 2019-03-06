@@ -53,15 +53,6 @@ namespace Edu.WebApi.Configuration
                 p.Password.RequireNonAlphanumeric = false;
                 p.Password.RequiredLength = 6;
             });
-            //var builder = services.AddIdentityCore<EduUser>(o =>
-            //{
-            //    // configure identity options
-            //    o.Password.RequireDigit = false;
-            //    o.Password.RequireLowercase = false;
-            //    o.Password.RequireUppercase = false;
-            //    o.Password.RequireNonAlphanumeric = false;
-            //    o.Password.RequiredLength = 6;
-            //});
             builder = new IdentityBuilder(builder.UserType, typeof(EduRole), builder.Services);
             builder.AddEntityFrameworkStores<EduFundContext>().AddDefaultTokenProviders();
 

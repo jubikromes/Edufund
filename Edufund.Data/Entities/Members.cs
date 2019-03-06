@@ -19,13 +19,15 @@ namespace Edufund.Data.Entities
         public List<Referral> Referrals { get; set; }
         public List<Referral> AllReferred { get; set; }
 
+        public int? PassportId { get; set; }
+        public Attachment Passport { get; set; }
 
         public MemberWallet MemberWallet { get; set; }
         [ForeignKey("EduUser")]
         public int? EduUserId { get; set; }
         public EduUser EduUser { get; set; }
 
-        public int Kyc { get; set; }
+        public int? Kyc { get; set; }
         public string NextofKinName { get; set; }
         public string NextofKinNumber { get; set; }
         public string SecurityQuestion1 { get; set; }
