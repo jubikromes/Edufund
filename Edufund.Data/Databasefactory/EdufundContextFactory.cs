@@ -3,13 +3,9 @@ using Edufund.Data.Context;
 using Edufund.Data.Databasefactory;
 using Edufund.Data.DatabaseManager;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Server.Kestrel.Core.Internal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Text;
 
 namespace Edufund.Data
 {
